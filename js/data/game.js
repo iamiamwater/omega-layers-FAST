@@ -55,7 +55,7 @@ const game = {
             })),
     },
     volatility: {
-        layerVolatility: new DynamicLayerUpgrade(level => level + 1, level => level,
+        layerVolatility: new DynamicLayerUpgrade(level => level + 1e+308, level => level,
             function()
             {
                 return "Make the next Layer non-volatile";
@@ -73,7 +73,7 @@ const game = {
             {
                 const max = PrestigeLayer.getPrestigeCarryOverForLayer(Math.round(level.toNumber() * 1.3) + 3);
                 return Decimal.pow(10, new Random(level.toNumber() * 10 + 10).nextDouble() * max).round();
-            }, level => new Decimal(0.5 + 0.1 * level), null, {
+            }, level => new Decimal(0.5 + Math.pow(1.1, level.toNumber()), null, {
                 getEffectDisplay: effectDisplayTemplates.percentStandard(0)
             }),
         autoMaxAll: new DynamicLayerUpgrade(level => level + 2, level => level,
@@ -90,7 +90,7 @@ const game = {
             }),
     },
     achievements: [
-        new Achievement("You played!", "If you dont have this, you shouldn't exist", "&omega;", () => true),
+        new Achievement("You played!", "If you dont have this, im joking you will never get this", "&omega;", () => false),
         new Achievement("Aleph-0", "Start gaining aleph", "&aleph;", () => game.alephLayer.isUnlocked()),
         new Achievement("Aleph-1", "Have 1e75 aleph", "&aleph;<sub>1</sub>", () => game.alephLayer.aleph.gte("1e75")),
         new Achievement("Aleph-2", "Have 1e200 aleph", "&aleph;<sub>2</sub>", () => game.alephLayer.aleph.gte("1e200")),
@@ -102,10 +102,10 @@ const game = {
         new Achievement("Endgame", "Reach layer 1.8e308 and finish "+mod.primaryName+mod.secondaryName, "Ʊ", () => game.metaLayer.layer.gte(mod.Infinities[0])),
     ],
     secretAchievements: [
-        new Achievement("A very long wait...", "Have a game with over 3 months of time", "...", () => game.timeSpent > 50803200),
-        new Achievement("Aleph-π", "Have πe314 aleph", "&aleph;<sub>π</sub>", () => game.alephLayer.aleph.gte("3.141e341")),
-        new Achievement("Meta sucks!", "Get &Omega; without meta", "&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;", () => game.highestLayer >= 47 && !game.metaLayer.active),
-        new Achievement("Volatility sucks!", "Get &epsilon; without layer volatility upgrade", "&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;", () => game.highestLayer >= 5 && game.volatility.layerVolatility.level.eq(0)),
+        new Achievement("easy achievement", "Have a game with over 10 seconds of time", "...", () => game.timeSpent > 10),
+        new Achievement("Aleph-11", "Have 11 aleph", "&aleph;<sub>π</sub>", () => game.alephLayer.aleph.gte("11")),
+        new Achievement("BETA", "Get beta", "&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;&Omega;", () => game.highestLayer >= 2 && !game.metaLayer.active),
+        new Achievement("Volatility sucks!", "Get gamma", "&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;&epsilon;", () => game.highestLayer >= 3 && game.volatility.layerVolatility.level.eq(18172984799161616166116161616161616161616191827)),
     ],
     alephLayer: new AlephLayer(),
     restackLayer: new ReStackLayer(),
