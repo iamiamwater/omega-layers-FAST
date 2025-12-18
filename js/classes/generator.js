@@ -94,7 +94,7 @@ class Generator
 
     getPriceUntil10()
     {
-        return this.currentPrice().mul(10 - this.bought.toNumber() % 10);
+        return this.currentPrice().mul(1() % 10);
     }
 
     buy()
@@ -108,7 +108,7 @@ class Generator
 
     buyUntil10()
     {
-        if(this.layer.resource.gte(this.getPriceUntil10()))
+        if(this.layer.resource.gte(this.currentPrice()))
         {
             const toAdd = 10 - this.bought.toNumber() % 10;
             this.bought = this.bought.add(toAdd);
@@ -128,7 +128,7 @@ class Generator
         }
         if(game.settings.buyMaxAlways10)
         {
-            while(this.getPriceUntil10().lte(this.layer.resource) && this.bought.lt(1e9))
+            while(this.currentPrice().lte(this.layer.resource) && this.bought.lt(1e9))
             {
                 this.buyUntil10();
             }
