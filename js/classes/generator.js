@@ -101,7 +101,6 @@ class Generator
     {
         if(this.layer.resource.gte(this.currentPrice()))
         {
-            this.layer.resource = this.layer.resource.sub(this.currentPrice());
             this.bought = this.bought.add(1);
             this.amount = this.amount.add(1);
         }
@@ -111,7 +110,6 @@ class Generator
     {
         if(this.layer.resource.gte(this.getPriceUntil10()))
         {
-            this.layer.resource = this.layer.resource.sub(this.getPriceUntil10());
             const toAdd = 10 - this.bought.toNumber() % 10;
             this.bought = this.bought.add(toAdd);
             this.amount = this.amount.add(toAdd);
